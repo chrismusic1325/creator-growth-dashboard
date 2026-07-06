@@ -34,6 +34,25 @@ export const products = [
   }
 ];
 
+{
+  id: 3,
+  name: "Instagram",
+  followers: 1200,
+  monetized: true
+},
+{
+  id: 4,
+  name: "YouTube",
+  followers: 3400,
+  monetized: false
+},
+{
+  id: 5,
+  name: "TikTok",
+  followers: 2700,
+  monetized: true
+}
+
 export const tasks = [
   {
     id: 1,
