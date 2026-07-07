@@ -1,6 +1,10 @@
 import PlatformCard from "./PlatformCard";
 
-function PlatformList({ platforms }) {
+function PlatformList({
+  platforms,
+  onDeletePlatform,
+  onEditPlatform,
+}) {
   return (
     <section>
       <h2>Social Media Platforms</h2>
@@ -9,6 +13,8 @@ function PlatformList({ platforms }) {
         <PlatformCard
           key={platform.id}
           platform={platform}
+          onDeletePlatform={onDeletePlatform}
+          onEditPlatform={onEditPlatform}
         />
       ))}
     </section>
