@@ -5,19 +5,26 @@ import DashboardSummary from "./components/dashboard/DashboardSummary";
 import PlatformList from "./components/platforms/PlatformList";
 import PlatformForm from "./components/platforms/PlatformForm";
 import EditPlatformForm from "./components/platforms/EditPlatformForm";
-import { platforms as starterPlatforms, products, tasks } from "./data/mockData";
+import TaskForm from "./components/tasks/TaskForm";
+import TaskList from "./components/tasks/TaskList";
+import {
+  platforms as starterPlatforms,
+  products,
+  tasks as starterTasks,
+} from "./data/mockData";
 import "./App.css";
 
 function App() {
   const [platforms, setPlatforms] = useState(starterPlatforms);
+  const [tasks, setTasks] = useState(starterTasks);
   const [platformBeingEdited, setPlatformBeingEdited] = useState(null);
 
-  function deletePlatform(platformId) {
-    const updatedPlatforms = platforms.filter(
-      (platform) => platform.id !== platformId
-    );
+  function addTask(newTask) {
+    setTasks([...tasks, newTask]);
+  }
 
-    setPlatforms(updatedPlatforms);
+  function deletePlatform(platformId) {
+    setPlatforms(platforms.filter((platform) => platform.id !== platformId));
   }
 
   function startEditingPlatform(platform) {
@@ -25,11 +32,12 @@ function App() {
   }
 
   function updatePlatform(updatedPlatform) {
-    const updatedPlatforms = platforms.map((platform) =>
-      platform.id === updatedPlatform.id ? updatedPlatform : platform
+    setPlatforms(
+      platforms.map((platform) =>
+        platform.id === updatedPlatform.id ? updatedPlatform : platform
+      )
     );
 
-    setPlatforms(updatedPlatforms);
     setPlatformBeingEdited(null);
   }
 
@@ -63,6 +71,9 @@ function App() {
           onDeletePlatform={deletePlatform}
           onEditPlatform={startEditingPlatform}
         />
+
+        <TaskForm onAddTask={addTask} />
+        <TaskList tasks={tasks} />
       </main>
 
       <Footer />
