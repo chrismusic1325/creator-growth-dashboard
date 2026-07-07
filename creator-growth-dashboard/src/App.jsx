@@ -23,6 +23,14 @@ function App() {
     setTasks([...tasks, newTask]);
   }
 
+  function toggleTaskComplete(taskId) {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+
+    setTasks(updatedTasks);
+  }
+
   function deletePlatform(platformId) {
     setPlatforms(platforms.filter((platform) => platform.id !== platformId));
   }
@@ -73,7 +81,10 @@ function App() {
         />
 
         <TaskForm onAddTask={addTask} />
-        <TaskList tasks={tasks} />
+        <TaskList
+          tasks={tasks}
+          onToggleTaskComplete={toggleTaskComplete}
+        />
       </main>
 
       <Footer />
