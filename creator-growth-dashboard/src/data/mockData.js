@@ -4,14 +4,27 @@ export const platforms = [
     name: "YouTube",
     handle: "@creator",
     category: "Video",
-    status: "Active"
+    status: "Active",
+    followers: 3400,
+    monetized: false
   },
   {
     id: 2,
     name: "Instagram",
     handle: "@creator",
     category: "Social",
-    status: "Planning"
+    status: "Planning",
+    followers: 1200,
+    monetized: true
+  },
+  {
+    id: 3,
+    name: "TikTok",
+    handle: "@creator",
+    category: "Short Form Video",
+    status: "Active",
+    followers: 2700,
+    monetized: true
   }
 ];
 
