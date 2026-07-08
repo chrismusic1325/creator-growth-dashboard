@@ -1,12 +1,12 @@
 import { useState } from "react";
+import { Routes, Route } from "react-router";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import DashboardSummary from "./components/dashboard/DashboardSummary";
-import PlatformList from "./components/platforms/PlatformList";
-import PlatformForm from "./components/platforms/PlatformForm";
-import EditPlatformForm from "./components/platforms/EditPlatformForm";
-import TaskForm from "./components/tasks/TaskForm";
-import TaskList from "./components/tasks/TaskList";
+import NavBar from "./components/layout/NavBar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
 import {
   platforms as starterPlatforms,
   products,
@@ -24,11 +24,11 @@ function App() {
   }
 
   function toggleTaskComplete(taskId) {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      )
     );
-
-    setTasks(updatedTasks);
   }
 
   function deletePlatform(platformId) {
@@ -56,35 +56,33 @@ function App() {
   return (
     <>
       <Header />
+      <NavBar />
 
       <main>
-        <DashboardSummary
-          platforms={platforms}
-          products={products}
-          tasks={tasks}
-        />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        {platformBeingEdited ? (
-          <EditPlatformForm
-            platform={platformBeingEdited}
-            onUpdatePlatform={updatePlatform}
-            onCancelEdit={cancelEdit}
+          <Route
+            path="/dashboard"
+            element={
+              <Dashboard
+                platforms={platforms}
+                products={products}
+                tasks={tasks}
+                platformBeingEdited={platformBeingEdited}
+                onAddTask={addTask}
+                onToggleTaskComplete={toggleTaskComplete}
+                onDeletePlatform={deletePlatform}
+                onEditPlatform={startEditingPlatform}
+                onUpdatePlatform={updatePlatform}
+                onCancelEdit={cancelEdit}
+              />
+            }
           />
-        ) : (
-          <PlatformForm />
-        )}
 
-        <PlatformList
-          platforms={platforms}
-          onDeletePlatform={deletePlatform}
-          onEditPlatform={startEditingPlatform}
-        />
-
-        <TaskForm onAddTask={addTask} />
-        <TaskList
-          tasks={tasks}
-          onToggleTaskComplete={toggleTaskComplete}
-        />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
       </main>
 
       <Footer />
