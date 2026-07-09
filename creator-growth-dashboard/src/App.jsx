@@ -20,6 +20,11 @@ function App() {
   const [tasks, setTasks] = useState(starterTasks);
   const [platformBeingEdited, setPlatformBeingEdited] = useState(null);
   const [productBeingEdited, setProductBeingEdited] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   function addProduct(newProduct) {
     setProducts([...products, newProduct]);
@@ -95,10 +100,12 @@ function App() {
             element={
               <Dashboard
                 platforms={platforms}
-                products={products}
+                products={filteredProducts}
                 tasks={tasks}
                 platformBeingEdited={platformBeingEdited}
                 productBeingEdited={productBeingEdited}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
                 onAddProduct={addProduct}
                 onUpdateProduct={updateProduct}
                 onCancelProductEdit={cancelProductEdit}
