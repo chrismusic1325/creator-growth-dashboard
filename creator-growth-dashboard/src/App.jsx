@@ -9,15 +9,20 @@ import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import {
   platforms as starterPlatforms,
-  products,
+  products as starterProducts,
   tasks as starterTasks,
 } from "./data/mockData";
 import "./App.css";
 
 function App() {
   const [platforms, setPlatforms] = useState(starterPlatforms);
+  const [products, setProducts] = useState(starterProducts);
   const [tasks, setTasks] = useState(starterTasks);
   const [platformBeingEdited, setPlatformBeingEdited] = useState(null);
+
+  function addProduct(newProduct) {
+    setProducts([...products, newProduct]);
+  }
 
   function addTask(newTask) {
     setTasks([...tasks, newTask]);
@@ -70,6 +75,7 @@ function App() {
                 products={products}
                 tasks={tasks}
                 platformBeingEdited={platformBeingEdited}
+                onAddProduct={addProduct}
                 onAddTask={addTask}
                 onToggleTaskComplete={toggleTaskComplete}
                 onDeletePlatform={deletePlatform}
