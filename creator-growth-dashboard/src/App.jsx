@@ -25,6 +25,10 @@ function App() {
     setProducts([...products, newProduct]);
   }
 
+  function deleteProduct(productId) {
+    setProducts(products.filter((product) => product.id !== productId));
+  }
+
   function startEditingProduct(product) {
     setProductBeingEdited(product);
   }
@@ -99,6 +103,7 @@ function App() {
                 onUpdateProduct={updateProduct}
                 onCancelProductEdit={cancelProductEdit}
                 onEditProduct={startEditingProduct}
+                onDeleteProduct={deleteProduct}
                 onAddTask={addTask}
                 onToggleTaskComplete={toggleTaskComplete}
                 onDeletePlatform={deletePlatform}
