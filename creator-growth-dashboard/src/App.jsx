@@ -19,9 +19,28 @@ function App() {
   const [products, setProducts] = useState(starterProducts);
   const [tasks, setTasks] = useState(starterTasks);
   const [platformBeingEdited, setPlatformBeingEdited] = useState(null);
+  const [productBeingEdited, setProductBeingEdited] = useState(null);
 
   function addProduct(newProduct) {
     setProducts([...products, newProduct]);
+  }
+
+  function startEditingProduct(product) {
+    setProductBeingEdited(product);
+  }
+
+  function updateProduct(updatedProduct) {
+    setProducts(
+      products.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      )
+    );
+
+    setProductBeingEdited(null);
+  }
+
+  function cancelProductEdit() {
+    setProductBeingEdited(null);
   }
 
   function addTask(newTask) {
@@ -75,7 +94,11 @@ function App() {
                 products={products}
                 tasks={tasks}
                 platformBeingEdited={platformBeingEdited}
+                productBeingEdited={productBeingEdited}
                 onAddProduct={addProduct}
+                onUpdateProduct={updateProduct}
+                onCancelProductEdit={cancelProductEdit}
+                onEditProduct={startEditingProduct}
                 onAddTask={addTask}
                 onToggleTaskComplete={toggleTaskComplete}
                 onDeletePlatform={deletePlatform}
