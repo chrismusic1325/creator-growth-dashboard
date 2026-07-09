@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
+import CalendarPage from "./pages/Calendar";
 import {
   platforms as starterPlatforms,
   products as starterProducts,
@@ -132,6 +133,8 @@ function App() {
               />
             }
           />
+
+          <Route path="/calendar" element={<CalendarPage tasks={tasks} />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
