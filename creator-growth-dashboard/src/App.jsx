@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
+import Analytics from "./pages/Analytics";
 import {
   platforms as starterPlatforms,
   products as starterProducts,
@@ -117,6 +118,17 @@ function App() {
                 onEditPlatform={startEditingPlatform}
                 onUpdatePlatform={updatePlatform}
                 onCancelEdit={cancelEdit}
+              />
+            }
+          />
+
+          <Route
+            path="/analytics"
+            element={
+              <Analytics
+                platforms={platforms}
+                products={products}
+                tasks={tasks}
               />
             }
           />
