@@ -2,6 +2,8 @@ import DashboardSummary from "../components/dashboard/DashboardSummary";
 import PlatformList from "../components/platforms/PlatformList";
 import PlatformForm from "../components/platforms/PlatformForm";
 import EditPlatformForm from "../components/platforms/EditPlatformForm";
+import ProductForm from "../components/products/ProductForm";
+import ProductList from "../components/products/ProductList";
 import TaskForm from "../components/tasks/TaskForm";
 import TaskList from "../components/tasks/TaskList";
 
@@ -11,6 +13,7 @@ function Dashboard({
   tasks,
   platformBeingEdited,
   onAddTask,
+  onAddProduct,
   onToggleTaskComplete,
   onDeletePlatform,
   onEditPlatform,
@@ -24,6 +27,9 @@ function Dashboard({
         products={products}
         tasks={tasks}
       />
+
+      <ProductForm onAddProduct={onAddProduct} />
+      <ProductList products={products} />
 
       {platformBeingEdited ? (
         <EditPlatformForm
@@ -43,10 +49,7 @@ function Dashboard({
 
       <TaskForm onAddTask={onAddTask} />
 
-      <TaskList
-        tasks={tasks}
-        onToggleTaskComplete={onToggleTaskComplete}
-      />
+      <TaskList tasks={tasks} onToggleTaskComplete={onToggleTaskComplete} />
     </>
   );
 }
