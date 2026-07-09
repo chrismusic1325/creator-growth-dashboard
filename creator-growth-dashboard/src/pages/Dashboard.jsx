@@ -19,6 +19,7 @@ function Dashboard({
   onUpdateProduct,
   onCancelProductEdit,
   onEditProduct,
+  onDeleteProduct,
   onToggleTaskComplete,
   onDeletePlatform,
   onEditPlatform,
@@ -39,7 +40,11 @@ function Dashboard({
         <ProductForm onAddProduct={onAddProduct} />
       )}
 
-      <ProductList products={products} onEditProduct={onEditProduct} />
+      <ProductList
+        products={products}
+        onEditProduct={onEditProduct}
+        onDeleteProduct={onDeleteProduct}
+      />
 
       {platformBeingEdited ? (
         <EditPlatformForm

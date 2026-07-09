@@ -1,4 +1,4 @@
-function ProductCard({ product, onEditProduct }) {
+function ProductCard({ product, onEditProduct, onDeleteProduct }) {
   return (
     <article>
       <h3>{product.name}</h3>
@@ -19,9 +19,9 @@ function ProductCard({ product, onEditProduct }) {
         <strong>Status:</strong> {product.status}
       </p>
 
-      <button onClick={() => onEditProduct(product)}>
-        Edit
-      </button>
+      <button onClick={() => onEditProduct(product)}>Edit</button>
+
+      <button onClick={() => onDeleteProduct(product.id)}>Delete</button>
     </article>
   );
 }
