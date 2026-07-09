@@ -1,4 +1,5 @@
 import DashboardSummary from "../components/dashboard/DashboardSummary";
+import NotificationList from "../components/notifications/NotificationList";
 import PlatformList from "../components/platforms/PlatformList";
 import PlatformForm from "../components/platforms/PlatformForm";
 import EditPlatformForm from "../components/platforms/EditPlatformForm";
@@ -33,6 +34,8 @@ function Dashboard({
     <>
       <DashboardSummary platforms={platforms} products={products} tasks={tasks} />
 
+      <NotificationList tasks={tasks} products={products} />
+
       {productBeingEdited ? (
         <EditProductForm
           product={productBeingEdited}
@@ -43,10 +46,7 @@ function Dashboard({
         <ProductForm onAddProduct={onAddProduct} />
       )}
 
-      <ProductSearch
-        searchTerm={searchTerm}
-        onSearchChange={onSearchChange}
-      />
+      <ProductSearch searchTerm={searchTerm} onSearchChange={onSearchChange} />
 
       <ProductList
         products={products}
@@ -71,7 +71,6 @@ function Dashboard({
       />
 
       <TaskForm onAddTask={onAddTask} />
-
       <TaskList tasks={tasks} onToggleTaskComplete={onToggleTaskComplete} />
     </>
   );
