@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
+import SocialMedia from "./pages/SocialMedia";
 import Analytics from "./pages/Analytics";
 import CalendarPage from "./pages/Calendar";
 import {
@@ -28,12 +29,48 @@ function App() {
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  function addPlatform(newPlatform) {
+    setPlatforms((currentPlatforms) => [
+      ...currentPlatforms,
+      newPlatform,
+    ]);
+  }
+
+  function deletePlatform(platformId) {
+    setPlatforms((currentPlatforms) =>
+      currentPlatforms.filter((platform) => platform.id !== platformId)
+    );
+  }
+
+  function startEditingPlatform(platform) {
+    setPlatformBeingEdited(platform);
+  }
+
+  function updatePlatform(updatedPlatform) {
+    setPlatforms((currentPlatforms) =>
+      currentPlatforms.map((platform) =>
+        platform.id === updatedPlatform.id ? updatedPlatform : platform
+      )
+    );
+
+    setPlatformBeingEdited(null);
+  }
+
+  function cancelEdit() {
+    setPlatformBeingEdited(null);
+  }
+
   function addProduct(newProduct) {
-    setProducts([...products, newProduct]);
+    setProducts((currentProducts) => [
+      ...currentProducts,
+      newProduct,
+    ]);
   }
 
   function deleteProduct(productId) {
-    setProducts(products.filter((product) => product.id !== productId));
+    setProducts((currentProducts) =>
+      currentProducts.filter((product) => product.id !== productId)
+    );
   }
 
   function startEditingProduct(product) {
@@ -41,8 +78,8 @@ function App() {
   }
 
   function updateProduct(updatedProduct) {
-    setProducts(
-      products.map((product) =>
+    setProducts((currentProducts) =>
+      currentProducts.map((product) =>
         product.id === updatedProduct.id ? updatedProduct : product
       )
     );
@@ -55,37 +92,17 @@ function App() {
   }
 
   function addTask(newTask) {
-    setTasks([...tasks, newTask]);
+    setTasks((currentTasks) => [...currentTasks, newTask]);
   }
 
   function toggleTaskComplete(taskId) {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.id === taskId
+          ? { ...task, completed: !task.completed }
+          : task
       )
     );
-  }
-
-  function deletePlatform(platformId) {
-    setPlatforms(platforms.filter((platform) => platform.id !== platformId));
-  }
-
-  function startEditingPlatform(platform) {
-    setPlatformBeingEdited(platform);
-  }
-
-  function updatePlatform(updatedPlatform) {
-    setPlatforms(
-      platforms.map((platform) =>
-        platform.id === updatedPlatform.id ? updatedPlatform : platform
-      )
-    );
-
-    setPlatformBeingEdited(null);
-  }
-
-  function cancelEdit() {
-    setPlatformBeingEdited(null);
   }
 
   return (
@@ -104,7 +121,6 @@ function App() {
                 platforms={platforms}
                 products={filteredProducts}
                 tasks={tasks}
-                platformBeingEdited={platformBeingEdited}
                 productBeingEdited={productBeingEdited}
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
@@ -115,6 +131,17 @@ function App() {
                 onDeleteProduct={deleteProduct}
                 onAddTask={addTask}
                 onToggleTaskComplete={toggleTaskComplete}
+              />
+            }
+          />
+
+          <Route
+            path="/social-media"
+            element={
+              <SocialMedia
+                platforms={platforms}
+                platformBeingEdited={platformBeingEdited}
+                onAddPlatform={addPlatform}
                 onDeletePlatform={deletePlatform}
                 onEditPlatform={startEditingPlatform}
                 onUpdatePlatform={updatePlatform}
@@ -134,7 +161,10 @@ function App() {
             }
           />
 
-          <Route path="/calendar" element={<CalendarPage tasks={tasks} />} />
+          <Route
+            path="/calendar"
+            element={<CalendarPage tasks={tasks} />}
+          />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
