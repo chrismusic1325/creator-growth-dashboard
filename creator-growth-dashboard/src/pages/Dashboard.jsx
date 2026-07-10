@@ -31,48 +31,119 @@ function Dashboard({
   onCancelEdit,
 }) {
   return (
-    <>
-      <DashboardSummary platforms={platforms} products={products} tasks={tasks} />
+    <section>
+      <header>
+        <h1>Business Dashboard</h1>
 
-      <NotificationList tasks={tasks} products={products} />
+        <p>
+          Manage the most important areas of your creator business from one
+          centralized workspace.
+        </p>
 
-      {productBeingEdited ? (
-        <EditProductForm
-          product={productBeingEdited}
-          onUpdateProduct={onUpdateProduct}
-          onCancelEdit={onCancelProductEdit}
+        <p>
+          Review business performance, monitor active alerts, organize digital
+          products, manage social media platforms, and keep marketing work on
+          track.
+        </p>
+      </header>
+
+      <section>
+        <h2>Business Overview</h2>
+
+        <p>
+          Review current platform activity, product totals, and marketing task
+          progress at a glance.
+        </p>
+
+        <DashboardSummary
+          platforms={platforms}
+          products={products}
+          tasks={tasks}
         />
-      ) : (
-        <ProductForm onAddProduct={onAddProduct} />
-      )}
+      </section>
 
-      <ProductSearch searchTerm={searchTerm} onSearchChange={onSearchChange} />
+      <section>
+        <h2>Current Alerts</h2>
 
-      <ProductList
-        products={products}
-        onEditProduct={onEditProduct}
-        onDeleteProduct={onDeleteProduct}
-      />
+        <p>
+          Stay informed about incomplete tasks and products that still require
+          attention.
+        </p>
 
-      {platformBeingEdited ? (
-        <EditPlatformForm
-          platform={platformBeingEdited}
-          onUpdatePlatform={onUpdatePlatform}
-          onCancelEdit={onCancelEdit}
+        <NotificationList tasks={tasks} products={products} />
+      </section>
+
+      <section>
+        <h2>Digital Product Management</h2>
+
+        <p>
+          Add, update, search, and organize the products offered through your
+          creator business.
+        </p>
+
+        {productBeingEdited ? (
+          <EditProductForm
+            product={productBeingEdited}
+            onUpdateProduct={onUpdateProduct}
+            onCancelEdit={onCancelProductEdit}
+          />
+        ) : (
+          <ProductForm onAddProduct={onAddProduct} />
+        )}
+
+        <ProductSearch
+          searchTerm={searchTerm}
+          onSearchChange={onSearchChange}
         />
-      ) : (
-        <PlatformForm />
-      )}
 
-      <PlatformList
-        platforms={platforms}
-        onDeletePlatform={onDeletePlatform}
-        onEditPlatform={onEditPlatform}
-      />
+        <ProductList
+          products={products}
+          onEditProduct={onEditProduct}
+          onDeleteProduct={onDeleteProduct}
+        />
+      </section>
 
-      <TaskForm onAddTask={onAddTask} />
-      <TaskList tasks={tasks} onToggleTaskComplete={onToggleTaskComplete} />
-    </>
+      <section>
+        <h2>Social Media Management</h2>
+
+        <p>
+          Maintain an organized record of your platforms, account details,
+          audience size, activity status, and monetization progress.
+        </p>
+
+        {platformBeingEdited ? (
+          <EditPlatformForm
+            platform={platformBeingEdited}
+            onUpdatePlatform={onUpdatePlatform}
+            onCancelEdit={onCancelEdit}
+          />
+        ) : (
+          <PlatformForm />
+        )}
+
+        <PlatformList
+          platforms={platforms}
+          onDeletePlatform={onDeletePlatform}
+          onEditPlatform={onEditPlatform}
+        />
+      </section>
+
+      <section>
+        <h2>Marketing Task Management</h2>
+
+        <p>
+          Organize responsibilities, assign priorities, and monitor progress as
+          marketing work is completed.
+        </p>
+
+        <TaskForm onAddTask={onAddTask} />
+
+        <TaskList
+          tasks={tasks}
+          onToggleTaskComplete={onToggleTaskComplete}
+        />
+      </section>
+    </section>
   );
 }
 
