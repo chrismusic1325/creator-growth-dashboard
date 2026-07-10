@@ -7,25 +7,62 @@ function CalendarPage({ tasks }) {
 
   return (
     <section>
-      <h2>Calendar View</h2>
-      <p>Use this calendar to review marketing tasks and plan upcoming work.</p>
+      <header>
+        <h1>Marketing Calendar</h1>
 
-      <Calendar onChange={setSelectedDate} value={selectedDate} />
+        <p>
+          Plan campaigns, review deadlines, and keep upcoming marketing work
+          organized from one centralized calendar.
+        </p>
 
-      <h3>Marketing Tasks</h3>
+        <p>
+          This planning view helps maintain consistency across content,
+          promotions, product activity, and other business priorities.
+        </p>
+      </header>
 
-      {tasks.length === 0 ? (
-        <p>No tasks available.</p>
-      ) : (
-        <ul>
-          {tasks.map((task) => (
-            <li key={task.id}>
-              <strong>{task.title}</strong> — Priority: {task.priority} —{" "}
-              {task.completed ? "Complete" : "Incomplete"}
-            </li>
-          ))}
-        </ul>
-      )}
+      <section>
+        <h2>Plan Your Schedule</h2>
+
+        <p>
+          Select a date to review your schedule and prepare for upcoming work.
+        </p>
+
+        <Calendar
+          onChange={setSelectedDate}
+          value={selectedDate}
+        />
+
+        <p>
+          <strong>Selected Date:</strong>{" "}
+          {selectedDate.toLocaleDateString()}
+        </p>
+      </section>
+
+      <section>
+        <h2>Current Marketing Tasks</h2>
+
+        <p>
+          Review active priorities and completed work connected to your
+          marketing workflow.
+        </p>
+
+        {tasks.length === 0 ? (
+          <p>No marketing tasks are currently available.</p>
+        ) : (
+          <ul>
+            {tasks.map((task) => (
+              <li key={task.id}>
+                <strong>{task.title}</strong>
+                {" — "}
+                Priority: {task.priority}
+                {" — "}
+                Status: {task.completed ? "Complete" : "Incomplete"}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </section>
   );
 }
