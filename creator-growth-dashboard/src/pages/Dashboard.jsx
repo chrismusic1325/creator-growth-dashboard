@@ -1,8 +1,5 @@
 import DashboardSummary from "../components/dashboard/DashboardSummary";
 import NotificationList from "../components/notifications/NotificationList";
-import PlatformList from "../components/platforms/PlatformList";
-import PlatformForm from "../components/platforms/PlatformForm";
-import EditPlatformForm from "../components/platforms/EditPlatformForm";
 import ProductForm from "../components/products/ProductForm";
 import ProductSearch from "../components/products/ProductSearch";
 import ProductList from "../components/products/ProductList";
@@ -14,7 +11,6 @@ function Dashboard({
   platforms,
   products,
   tasks,
-  platformBeingEdited,
   productBeingEdited,
   searchTerm,
   onSearchChange,
@@ -25,10 +21,6 @@ function Dashboard({
   onEditProduct,
   onDeleteProduct,
   onToggleTaskComplete,
-  onDeletePlatform,
-  onEditPlatform,
-  onUpdatePlatform,
-  onCancelEdit,
 }) {
   return (
     <section>
@@ -36,14 +28,13 @@ function Dashboard({
         <h1>Business Dashboard</h1>
 
         <p>
-          Manage the most important areas of your creator business from one
-          centralized workspace.
+          Review the most important areas of your creator business from one
+          centralized overview.
         </p>
 
         <p>
-          Review business performance, monitor active alerts, organize digital
-          products, manage social media platforms, and keep marketing work on
-          track.
+          Monitor business performance, review active alerts, manage marketing
+          responsibilities, and quickly assess current activity.
         </p>
       </header>
 
@@ -51,8 +42,8 @@ function Dashboard({
         <h2>Business Overview</h2>
 
         <p>
-          Review current platform activity, product totals, and marketing task
-          progress at a glance.
+          Review platform activity, product totals, and marketing progress at a
+          glance.
         </p>
 
         <DashboardSummary
@@ -100,31 +91,6 @@ function Dashboard({
           products={products}
           onEditProduct={onEditProduct}
           onDeleteProduct={onDeleteProduct}
-        />
-      </section>
-
-      <section>
-        <h2>Social Media Management</h2>
-
-        <p>
-          Maintain an organized record of your platforms, account details,
-          audience size, activity status, and monetization progress.
-        </p>
-
-        {platformBeingEdited ? (
-          <EditPlatformForm
-            platform={platformBeingEdited}
-            onUpdatePlatform={onUpdatePlatform}
-            onCancelEdit={onCancelEdit}
-          />
-        ) : (
-          <PlatformForm />
-        )}
-
-        <PlatformList
-          platforms={platforms}
-          onDeletePlatform={onDeletePlatform}
-          onEditPlatform={onEditPlatform}
         />
       </section>
 
