@@ -1,9 +1,5 @@
 import DashboardSummary from "../components/dashboard/DashboardSummary";
 import NotificationList from "../components/notifications/NotificationList";
-import ProductForm from "../components/products/ProductForm";
-import ProductSearch from "../components/products/ProductSearch";
-import ProductList from "../components/products/ProductList";
-import EditProductForm from "../components/products/EditProductForm";
 import TaskForm from "../components/tasks/TaskForm";
 import TaskList from "../components/tasks/TaskList";
 
@@ -11,15 +7,7 @@ function Dashboard({
   platforms,
   products,
   tasks,
-  productBeingEdited,
-  searchTerm,
-  onSearchChange,
   onAddTask,
-  onAddProduct,
-  onUpdateProduct,
-  onCancelProductEdit,
-  onEditProduct,
-  onDeleteProduct,
   onToggleTaskComplete,
 }) {
   return (
@@ -33,8 +21,9 @@ function Dashboard({
         </p>
 
         <p>
-          Monitor business performance, review active alerts, manage marketing
-          responsibilities, and quickly assess current activity.
+          Monitor business performance, review active alerts, and keep
+          marketing responsibilities organized without mixing detailed product
+          or social media management into the same workspace.
         </p>
       </header>
 
@@ -57,40 +46,13 @@ function Dashboard({
         <h2>Current Alerts</h2>
 
         <p>
-          Stay informed about incomplete tasks and products that still require
-          attention.
+          Stay informed about incomplete tasks and products that may still
+          require attention.
         </p>
 
-        <NotificationList tasks={tasks} products={products} />
-      </section>
-
-      <section>
-        <h2>Digital Product Management</h2>
-
-        <p>
-          Add, update, search, and organize the products offered through your
-          creator business.
-        </p>
-
-        {productBeingEdited ? (
-          <EditProductForm
-            product={productBeingEdited}
-            onUpdateProduct={onUpdateProduct}
-            onCancelEdit={onCancelProductEdit}
-          />
-        ) : (
-          <ProductForm onAddProduct={onAddProduct} />
-        )}
-
-        <ProductSearch
-          searchTerm={searchTerm}
-          onSearchChange={onSearchChange}
-        />
-
-        <ProductList
+        <NotificationList
+          tasks={tasks}
           products={products}
-          onEditProduct={onEditProduct}
-          onDeleteProduct={onDeleteProduct}
         />
       </section>
 

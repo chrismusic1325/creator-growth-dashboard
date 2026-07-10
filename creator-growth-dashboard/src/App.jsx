@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import SocialMedia from "./pages/SocialMedia";
+import DigitalProducts from "./pages/DigitalProducts";
 import Analytics from "./pages/Analytics";
 import CalendarPage from "./pages/Calendar";
 import {
@@ -40,6 +41,10 @@ function App() {
     setPlatforms((currentPlatforms) =>
       currentPlatforms.filter((platform) => platform.id !== platformId)
     );
+
+    if (platformBeingEdited?.id === platformId) {
+      setPlatformBeingEdited(null);
+    }
   }
 
   function startEditingPlatform(platform) {
@@ -56,7 +61,7 @@ function App() {
     setPlatformBeingEdited(null);
   }
 
-  function cancelEdit() {
+  function cancelPlatformEdit() {
     setPlatformBeingEdited(null);
   }
 
@@ -71,6 +76,10 @@ function App() {
     setProducts((currentProducts) =>
       currentProducts.filter((product) => product.id !== productId)
     );
+
+    if (productBeingEdited?.id === productId) {
+      setProductBeingEdited(null);
+    }
   }
 
   function startEditingProduct(product) {
@@ -119,16 +128,8 @@ function App() {
             element={
               <Dashboard
                 platforms={platforms}
-                products={filteredProducts}
+                products={products}
                 tasks={tasks}
-                productBeingEdited={productBeingEdited}
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                onAddProduct={addProduct}
-                onUpdateProduct={updateProduct}
-                onCancelProductEdit={cancelProductEdit}
-                onEditProduct={startEditingProduct}
-                onDeleteProduct={deleteProduct}
                 onAddTask={addTask}
                 onToggleTaskComplete={toggleTaskComplete}
               />
@@ -145,7 +146,24 @@ function App() {
                 onDeletePlatform={deletePlatform}
                 onEditPlatform={startEditingPlatform}
                 onUpdatePlatform={updatePlatform}
-                onCancelEdit={cancelEdit}
+                onCancelEdit={cancelPlatformEdit}
+              />
+            }
+          />
+
+          <Route
+            path="/digital-products"
+            element={
+              <DigitalProducts
+                products={filteredProducts}
+                productBeingEdited={productBeingEdited}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                onAddProduct={addProduct}
+                onEditProduct={startEditingProduct}
+                onUpdateProduct={updateProduct}
+                onDeleteProduct={deleteProduct}
+                onCancelProductEdit={cancelProductEdit}
               />
             }
           />
