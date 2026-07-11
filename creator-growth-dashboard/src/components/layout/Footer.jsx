@@ -1,7 +1,11 @@
 function Footer() {
   return (
-    <footer>
-      <p>Creator Growth Dashboard | Unit 1 Project</p>
+    <footer className="site-footer">
+      <p>Creator Growth Dashboard</p>
+
+      <p>
+        A centralized workspace for managing creator business activity.
+      </p>
     </footer>
   );
 }
