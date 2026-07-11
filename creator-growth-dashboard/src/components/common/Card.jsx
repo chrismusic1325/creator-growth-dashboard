@@ -1,8 +1,11 @@
 function Card({ title, children }) {
   return (
-    <section>
+    <section className="card">
       <h2>{title}</h2>
-      {children}
+
+      <div className="card-content">
+        {children}
+      </div>
     </section>
   );
 }
