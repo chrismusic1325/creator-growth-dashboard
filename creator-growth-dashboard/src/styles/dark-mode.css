@@ -1,0 +1,365 @@
+/* =========================================================
+   Light and dark theme variables
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-primary: #91a8ff;
+  --color-primary-dark: #b2c1ff;
+  --color-primary-light: #26365f;
+
+  --color-accent: #43d7b4;
+  --color-accent-dark: #75e4ca;
+
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-soft: #263449;
+
+  --color-text: #f8fafc;
+  --color-text-muted: #cbd5e1;
+
+  --color-border: #475569;
+  --color-danger: #ef6673;
+  --color-danger-dark: #ff8791;
+
+  --shadow-small: 0 4px 14px rgba(0, 0, 0, 0.28);
+  --shadow-medium: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================================
+   Theme transitions
+   ========================================================= */
+
+html,
+body,
+#root,
+main,
+section,
+article,
+header,
+footer,
+nav,
+aside,
+.card,
+.product-card,
+.platform-card,
+.task-card,
+.notification-card,
+.hamburger-menu,
+input,
+select,
+textarea,
+button {
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+
+/* =========================================================
+   Dark page and application shell
+   ========================================================= */
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(145, 168, 255, 0.12),
+      transparent 32%
+    ),
+    var(--color-background);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] #root {
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+
+/* =========================================================
+   Header layout and theme toggle placement
+   ========================================================= */
+
+.site-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.site-header-text {
+  min-width: 0;
+}
+
+[data-theme="dark"] .site-header {
+  background:
+    linear-gradient(
+      135deg,
+      #0b1224 0%,
+      #1f3476 55%,
+      #0d675d 100%
+    );
+}
+
+
+/* =========================================================
+   Theme toggle
+   ========================================================= */
+
+.theme-toggle {
+  flex: 0 0 auto;
+  min-width: 145px;
+  min-height: 46px;
+  padding: 11px 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+
+  font: inherit;
+  font-weight: 800;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(8px);
+
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.26);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.theme-toggle-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.theme-toggle-label {
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   Navigation
+   ========================================================= */
+
+[data-theme="dark"] .navbar {
+  border-bottom-color: var(--color-border);
+  background: rgba(30, 41, 59, 0.97);
+}
+
+[data-theme="dark"] .navbar-brand {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .navbar-brand:hover {
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .hamburger-button {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .hamburger-button:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .hamburger-menu {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .hamburger-menu > a,
+[data-theme="dark"] .submenu a,
+[data-theme="dark"] .menu-group > button {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .hamburger-menu > a:hover,
+[data-theme="dark"] .submenu a:hover,
+[data-theme="dark"] .menu-group > button:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+
+/* =========================================================
+   Content, cards, and forms
+   ========================================================= */
+
+[data-theme="dark"] main section > header {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(145, 168, 255, 0.13),
+      rgba(67, 215, 180, 0.08)
+    ),
+    var(--color-surface);
+}
+
+[data-theme="dark"] main section > section,
+[data-theme="dark"] .card,
+[data-theme="dark"] .product-card,
+[data-theme="dark"] .platform-card,
+[data-theme="dark"] .task-card,
+[data-theme="dark"] .notification-card,
+[data-theme="dark"] article {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] p {
+  color: var(--color-text-muted);
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] strong,
+[data-theme="dark"] label {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  border-color: var(--color-border);
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(145, 168, 255, 0.2);
+}
+
+
+/* =========================================================
+   Calendar
+   ========================================================= */
+
+[data-theme="dark"] .react-calendar {
+  border-color: var(--color-border) !important;
+  background: var(--color-surface) !important;
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .react-calendar button {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .react-calendar button:enabled:hover,
+[data-theme="dark"] .react-calendar button:enabled:focus {
+  background: var(--color-surface-soft);
+}
+
+[data-theme="dark"] .react-calendar__month-view__days__day--weekend {
+  color: #ff9ca5;
+}
+
+[data-theme="dark"] .react-calendar__month-view__days__day--neighboringMonth {
+  color: var(--color-text-muted);
+}
+
+[data-theme="dark"] .react-calendar__tile--active {
+  background: var(--color-primary) !important;
+  color: #101828 !important;
+}
+
+
+/* =========================================================
+   Footer
+   ========================================================= */
+
+[data-theme="dark"] .site-footer {
+  border-top-color: var(--color-border);
+  background: #080f1e;
+}
+
+
+/* =========================================================
+   Responsive dark-mode controls
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .site-header-content {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .theme-toggle {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header-content {
+    gap: 16px;
+  }
+
+  .theme-toggle {
+    width: 46px;
+    min-width: 46px;
+    padding: 10px;
+  }
+
+  .theme-toggle-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
