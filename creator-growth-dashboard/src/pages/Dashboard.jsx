@@ -1,7 +1,9 @@
+import { useRef, useState } from "react";
 import DashboardSummary from "../components/dashboard/DashboardSummary";
 import NotificationList from "../components/notifications/NotificationList";
 import TaskForm from "../components/tasks/TaskForm";
 import TaskList from "../components/tasks/TaskList";
+import ViewportPreview from "../components/common/ViewportPreview";
 
 function Dashboard({
   platforms,
@@ -10,8 +12,26 @@ function Dashboard({
   onAddTask,
   onToggleTaskComplete,
 }) {
+  const [viewport, setViewport] = useState("desktop");
+  const dashboardPreviewRef = useRef(null);
+
+  function handleViewportChange(selectedViewport) {
+    setViewport(selectedViewport);
+
+    window.requestAnimationFrame(() => {
+      dashboardPreviewRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      dashboardPreviewRef.current?.focus({
+        preventScroll: true,
+      });
+    });
+  }
+
   return (
-    <section>
+    <section className="dashboard-page">
       <header>
         <h1>Business Dashboard</h1>
 
@@ -27,50 +47,64 @@ function Dashboard({
         </p>
       </header>
 
-      <section>
-        <h2>Business Overview</h2>
+      <ViewportPreview
+        viewport={viewport}
+        onViewportChange={handleViewportChange}
+      />
 
-        <p>
-          Review platform activity, product totals, and marketing progress at a
-          glance.
-        </p>
+      <div className="dashboard-preview-stage">
+        <div
+          ref={dashboardPreviewRef}
+          className={`dashboard-preview dashboard-preview-${viewport}`}
+          tabIndex="-1"
+          aria-label={`${viewport} dashboard preview`}
+        >
+          <section>
+            <h2>Business Overview</h2>
 
-        <DashboardSummary
-          platforms={platforms}
-          products={products}
-          tasks={tasks}
-        />
-      </section>
+            <p>
+              Review platform activity, product totals, and marketing progress
+              at a glance.
+            </p>
 
-      <section>
-        <h2>Current Alerts</h2>
+            <DashboardSummary
+              platforms={platforms}
+              products={products}
+              tasks={tasks}
+            />
+          </section>
 
-        <p>
-          Stay informed about incomplete tasks and products that may still
-          require attention.
-        </p>
+          <section>
+            <h2>Current Alerts</h2>
 
-        <NotificationList
-          tasks={tasks}
-          products={products}
-        />
-      </section>
+            <p>
+              Stay informed about incomplete tasks and products that may still
+              require attention.
+            </p>
 
-      <section>
-        <h2>Marketing Task Management</h2>
+            <NotificationList
+              tasks={tasks}
+              products={products}
+            />
+          </section>
 
-        <p>
-          Organize responsibilities, assign priorities, and monitor progress as
-          marketing work is completed.
-        </p>
+          <section>
+            <h2>Marketing Task Management</h2>
 
-        <TaskForm onAddTask={onAddTask} />
+            <p>
+              Organize responsibilities, assign priorities, and monitor
+              progress as marketing work is completed.
+            </p>
 
-        <TaskList
-          tasks={tasks}
-          onToggleTaskComplete={onToggleTaskComplete}
-        />
-      </section>
+            <TaskForm onAddTask={onAddTask} />
+
+            <TaskList
+              tasks={tasks}
+              onToggleTaskComplete={onToggleTaskComplete}
+            />
+          </section>
+        </div>
+      </div>
     </section>
   );
 }
