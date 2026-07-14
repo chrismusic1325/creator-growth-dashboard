@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Routes, Route } from "react-router";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import NavBar from "./components/layout/NavBar";
+import ViewportPreview from "./components/common/ViewportPreview";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -17,6 +18,7 @@ import {
   tasks as starterTasks,
 } from "./data/mockData";
 import "./App.css";
+import "./styles/viewport-preview.css";
 
 function App() {
   const [platforms, setPlatforms] = useState(starterPlatforms);
@@ -25,10 +27,28 @@ function App() {
   const [platformBeingEdited, setPlatformBeingEdited] = useState(null);
   const [productBeingEdited, setProductBeingEdited] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [viewport, setViewport] = useState("desktop");
+
+  const appPreviewRef = useRef(null);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  function handleViewportChange(selectedViewport) {
+    setViewport(selectedViewport);
+
+    window.requestAnimationFrame(() => {
+      appPreviewRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      appPreviewRef.current?.focus({
+        preventScroll: true,
+      });
+    });
+  }
 
   function addPlatform(newPlatform) {
     setPlatforms((currentPlatforms) => [
@@ -115,82 +135,98 @@ function App() {
   }
 
   return (
-    <>
-      <Header />
-      <NavBar />
+    <div className="application-preview-workspace">
+      <div className="app-preview-stage">
+        <div
+          ref={appPreviewRef}
+          className={`app-preview-frame app-preview-${viewport}`}
+          data-preview={viewport}
+          tabIndex="-1"
+          aria-label={`${viewport} preview of the complete application`}
+        >
+          <ViewportPreview
+            viewport={viewport}
+            onViewportChange={handleViewportChange}
+          />
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
+          <Header />
 
-          <Route
-            path="/dashboard"
-            element={
-              <Dashboard
-                platforms={platforms}
-                products={products}
-                tasks={tasks}
-                onAddTask={addTask}
-                onToggleTaskComplete={toggleTaskComplete}
+          <NavBar key={viewport} />
+
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+
+              <Route
+                path="/dashboard"
+                element={
+                  <Dashboard
+                    platforms={platforms}
+                    products={products}
+                    tasks={tasks}
+                    onAddTask={addTask}
+                    onToggleTaskComplete={toggleTaskComplete}
+                  />
+                }
               />
-            }
-          />
 
-          <Route
-            path="/social-media"
-            element={
-              <SocialMedia
-                platforms={platforms}
-                platformBeingEdited={platformBeingEdited}
-                onAddPlatform={addPlatform}
-                onDeletePlatform={deletePlatform}
-                onEditPlatform={startEditingPlatform}
-                onUpdatePlatform={updatePlatform}
-                onCancelEdit={cancelPlatformEdit}
+              <Route
+                path="/social-media"
+                element={
+                  <SocialMedia
+                    platforms={platforms}
+                    platformBeingEdited={platformBeingEdited}
+                    onAddPlatform={addPlatform}
+                    onDeletePlatform={deletePlatform}
+                    onEditPlatform={startEditingPlatform}
+                    onUpdatePlatform={updatePlatform}
+                    onCancelEdit={cancelPlatformEdit}
+                  />
+                }
               />
-            }
-          />
 
-          <Route
-            path="/digital-products"
-            element={
-              <DigitalProducts
-                products={filteredProducts}
-                productBeingEdited={productBeingEdited}
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                onAddProduct={addProduct}
-                onEditProduct={startEditingProduct}
-                onUpdateProduct={updateProduct}
-                onDeleteProduct={deleteProduct}
-                onCancelProductEdit={cancelProductEdit}
+              <Route
+                path="/digital-products"
+                element={
+                  <DigitalProducts
+                    products={filteredProducts}
+                    productBeingEdited={productBeingEdited}
+                    searchTerm={searchTerm}
+                    onSearchChange={setSearchTerm}
+                    onAddProduct={addProduct}
+                    onEditProduct={startEditingProduct}
+                    onUpdateProduct={updateProduct}
+                    onDeleteProduct={deleteProduct}
+                    onCancelProductEdit={cancelProductEdit}
+                  />
+                }
               />
-            }
-          />
 
-          <Route
-            path="/analytics"
-            element={
-              <Analytics
-                platforms={platforms}
-                products={products}
-                tasks={tasks}
+              <Route
+                path="/analytics"
+                element={
+                  <Analytics
+                    platforms={platforms}
+                    products={products}
+                    tasks={tasks}
+                  />
+                }
               />
-            }
-          />
 
-          <Route
-            path="/calendar"
-            element={<CalendarPage tasks={tasks} />}
-          />
+              <Route
+                path="/calendar"
+                element={<CalendarPage tasks={tasks} />}
+              />
 
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
 
-      <Footer />
-    </>
+          <Footer />
+        </div>
+      </div>
+    </div>
   );
 }
 

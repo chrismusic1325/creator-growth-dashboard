@@ -1,41 +1,28 @@
-import "../../styles/viewport-preview.css";
-
 const VIEWPORT_OPTIONS = [
   {
     name: "mobile",
     label: "Mobile",
     icon: "📱",
-    description: "375 pixel preview",
   },
   {
     name: "tablet",
     label: "Tablet",
     icon: "▯",
-    description: "768 pixel preview",
   },
   {
     name: "desktop",
     label: "Desktop",
     icon: "🖥️",
-    description: "Full-width preview",
   },
 ];
 
 function ViewportPreview({ viewport, onViewportChange }) {
   return (
-    <div className="viewport-controls">
-      <div className="viewport-controls-heading">
-        <h2>Display Preview</h2>
-
-        <p>
-          Choose a mobile, tablet, or desktop view of the business dashboard.
-        </p>
-      </div>
-
+    <div className="viewport-toolbar">
       <div
         className="viewport-button-group"
         role="group"
-        aria-label="Choose dashboard preview size"
+        aria-label="Choose application preview size"
       >
         {VIEWPORT_OPTIONS.map((option) => {
           const isActive = viewport === option.name;
@@ -51,12 +38,8 @@ function ViewportPreview({ viewport, onViewportChange }) {
               }
               onClick={() => onViewportChange(option.name)}
               aria-pressed={isActive}
-              title={option.description}
             >
-              <span className="viewport-button-icon" aria-hidden="true">
-                {option.icon}
-              </span>
-
+              <span aria-hidden="true">{option.icon}</span>
               <span>{option.label}</span>
             </button>
           );
