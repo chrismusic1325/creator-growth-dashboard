@@ -1,25 +1,76 @@
 /* =========================================================
-   Viewport preview controls
+   Application preview workspace
    ========================================================= */
 
-.viewport-controls {
-  padding: 22px;
-  border: 1px solid var(--color-border);
+.application-preview-workspace {
+  min-height: 100vh;
+  padding: 24px;
+  overflow-x: auto;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.app-preview-stage {
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+  overflow-x: auto;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface-soft);
+}
+
+.app-preview-frame {
+  min-height: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-medium);
+  background: var(--color-background);
+  box-shadow: var(--shadow-medium);
+  transition:
+    width 320ms ease,
+    max-width 320ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+
+.app-preview-frame:focus {
+  outline: none;
+}
+
+.app-preview-frame:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.app-preview-mobile {
+  width: 375px;
+  max-width: 100%;
+}
+
+.app-preview-tablet {
+  width: 768px;
+  max-width: 100%;
+}
+
+.app-preview-desktop {
+  width: 100%;
+  max-width: 1440px;
+}
+
+
+/* =========================================================
+   Preview buttons inside the application
+   ========================================================= */
+
+.viewport-toolbar {
+  width: 100%;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: var(--shadow-small);
-}
-
-.viewport-controls-heading {
-  margin-bottom: 18px;
-}
-
-.viewport-controls-heading h2 {
-  margin-bottom: 8px;
-}
-
-.viewport-controls-heading p {
-  margin-bottom: 0;
 }
 
 .viewport-button-group {
@@ -63,106 +114,198 @@
   outline-offset: 3px;
 }
 
-.viewport-button-icon {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
 .viewport-current-status {
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   text-transform: capitalize;
 }
 
 
 /* =========================================================
-   Preview stage and frames
+   Hamburger menu: remain in page flow
    ========================================================= */
 
-.dashboard-preview-stage {
-  width: 100%;
-  padding: 22px;
-  overflow-x: auto;
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-large);
-  background: var(--color-surface-soft);
+.app-preview-frame .navbar {
+  position: relative;
 }
 
-.dashboard-preview {
-  width: 100%;
-  margin: 0 auto;
-  display: grid;
-  gap: 24px;
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-medium);
-  background: var(--color-background);
-  box-shadow: var(--shadow-medium);
-  transition:
-    width 300ms ease,
-    max-width 300ms ease,
-    background-color 220ms ease,
-    border-color 220ms ease;
+.app-preview-frame .hamburger-menu {
+  position: static;
+  width: min(calc(100% - 28px), 520px);
+  max-height: none;
+  margin: 0 auto 14px;
+  overflow: visible;
 }
 
-.dashboard-preview:focus {
-  outline: none;
+.app-preview-frame .hamburger-menu,
+.app-preview-mobile .hamburger-menu,
+.app-preview-tablet .hamburger-menu {
+  top: auto;
+  right: auto;
+  left: auto;
 }
 
-.dashboard-preview:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 4px;
-}
-
-.dashboard-preview > section {
-  padding: 24px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-medium);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-small);
-}
-
-.dashboard-preview-mobile {
-  width: 375px;
-  max-width: 100%;
-}
-
-.dashboard-preview-tablet {
-  width: 768px;
-  max-width: 100%;
-}
-
-.dashboard-preview-desktop {
-  width: 100%;
-  max-width: var(--content-width);
+.app-preview-frame .hamburger-menu > a,
+.app-preview-frame .submenu a,
+.app-preview-frame .menu-group > button {
+  min-height: 44px;
 }
 
 
 /* =========================================================
-   Simulated mobile and tablet layouts
+   Shared complete-application layout
    ========================================================= */
 
-.dashboard-preview-mobile .viewport-button-group,
-.dashboard-preview-mobile form {
+.app-preview-frame main {
+  flex: 1;
+}
+
+.app-preview-frame .site-header-content,
+.app-preview-frame .navbar-bar,
+.app-preview-frame main {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   Simulated tablet mode
+   ========================================================= */
+
+.app-preview-tablet .viewport-toolbar {
+  padding: 18px;
+}
+
+.app-preview-tablet .viewport-button {
+  flex: 1;
+  min-width: 110px;
+}
+
+.app-preview-tablet main {
+  width: calc(100% - 32px);
+  padding-top: 28px;
+}
+
+.app-preview-tablet .navbar-bar {
+  width: calc(100% - 32px);
+}
+
+.app-preview-tablet main section > header,
+.app-preview-tablet main section > section,
+.app-preview-tablet .card {
+  padding: 22px;
+}
+
+.app-preview-tablet form {
+  gap: 16px;
+}
+
+
+/* =========================================================
+   Simulated mobile mode
+   ========================================================= */
+
+.app-preview-mobile .viewport-toolbar {
+  padding: 14px;
+}
+
+.app-preview-mobile .viewport-button-group {
+  display: grid;
   grid-template-columns: 1fr;
 }
 
-.dashboard-preview-mobile button[type="submit"] {
+.app-preview-mobile .viewport-button {
+  width: 100%;
+  min-width: 0;
+}
+
+.app-preview-mobile .site-header {
+  padding: 28px 18px;
+}
+
+.app-preview-mobile .site-header-content {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.app-preview-mobile .site-header h1 {
+  font-size: 2rem;
+}
+
+.app-preview-mobile .theme-toggle {
+  width: auto;
+  min-width: 0;
+}
+
+.app-preview-mobile .theme-toggle-label {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+}
+
+.app-preview-mobile .navbar-bar {
+  width: calc(100% - 28px);
+  min-height: 62px;
+}
+
+.app-preview-mobile .navbar-brand {
+  max-width: 230px;
+  font-size: 0.98rem;
+}
+
+.app-preview-mobile .hamburger-menu {
+  width: calc(100% - 28px);
+  margin: 0 auto 14px;
+}
+
+.app-preview-mobile main {
+  width: calc(100% - 24px);
+  padding: 22px 0 40px;
+}
+
+.app-preview-mobile main > section {
+  gap: 20px;
+}
+
+.app-preview-mobile main section > header,
+.app-preview-mobile main section > section,
+.app-preview-mobile .card {
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.app-preview-mobile h1 {
+  font-size: 2rem;
+}
+
+.app-preview-mobile h2 {
+  font-size: 1.4rem;
+}
+
+.app-preview-mobile form {
+  gap: 14px;
+}
+
+.app-preview-mobile button {
+  min-height: 44px;
+}
+
+.app-preview-mobile form > button[type="submit"] {
   width: 100%;
 }
 
-.dashboard-preview-mobile .card,
-.dashboard-preview-mobile .product-card,
-.dashboard-preview-mobile .platform-card,
-.dashboard-preview-mobile .task-card,
-.dashboard-preview-mobile .notification-card {
-  padding: 15px;
+.app-preview-mobile .react-calendar {
+  padding: 8px;
 }
 
-.dashboard-preview-tablet .card,
-.dashboard-preview-tablet .product-card,
-.dashboard-preview-tablet .platform-card,
-.dashboard-preview-tablet .task-card,
-.dashboard-preview-tablet .notification-card {
-  padding: 19px;
+.app-preview-mobile .product-card,
+.app-preview-mobile .platform-card,
+.app-preview-mobile .task-card,
+.app-preview-mobile .notification-card,
+.app-preview-mobile article {
+  padding: 15px;
 }
 
 
@@ -170,19 +313,22 @@
    Dark-mode compatibility
    ========================================================= */
 
-[data-theme="dark"] .viewport-controls,
-[data-theme="dark"] .dashboard-preview > section {
-  border-color: var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
+[data-theme="dark"] .application-preview-workspace {
+  background: var(--color-background);
 }
 
-[data-theme="dark"] .dashboard-preview-stage {
+[data-theme="dark"] .app-preview-stage {
   background: var(--color-surface-soft);
 }
 
-[data-theme="dark"] .dashboard-preview {
+[data-theme="dark"] .app-preview-frame {
+  border-color: var(--color-border);
   background: var(--color-background);
+}
+
+[data-theme="dark"] .viewport-toolbar {
+  border-bottom-color: var(--color-border);
+  background: var(--color-surface);
 }
 
 [data-theme="dark"] .viewport-button {
@@ -199,43 +345,82 @@
 
 
 /* =========================================================
-   Actual responsive behavior
+   Real browser-width tablet rules
    ========================================================= */
 
-@media (max-width: 768px) {
-  .viewport-controls,
-  .dashboard-preview-stage {
-    padding: 18px;
+@media (max-width: 1024px) {
+  .application-preview-workspace {
+    padding: 16px;
   }
 
-  .viewport-button-group {
-    width: 100%;
+  .app-preview-stage {
+    padding: 14px;
   }
 
-  .viewport-button {
-    flex: 1;
-    min-width: 100px;
-  }
-
-  .dashboard-preview > section {
-    padding: 18px;
+  .app-preview-desktop {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 480px) {
+
+/* =========================================================
+   Real browser-width mobile rules
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .application-preview-workspace {
+    padding: 8px;
+  }
+
+  .app-preview-stage {
+    padding: 6px;
+  }
+
+  .app-preview-frame {
+    border-radius: 10px;
+  }
+
+  .viewport-toolbar {
+    padding: 14px;
+  }
+
   .viewport-button-group {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .viewport-button {
     width: 100%;
+    min-width: 0;
   }
 
-  .dashboard-preview-stage {
-    padding: 8px;
+  .hamburger-menu {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    width: calc(100% - 28px) !important;
+    max-height: none !important;
+    margin: 0 auto 14px !important;
+    overflow: visible !important;
+  }
+}
+
+
+/* =========================================================
+   Real small-phone rules
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .application-preview-workspace {
+    padding: 4px;
   }
 
-  .dashboard-preview > section {
-    padding: 15px;
+  .app-preview-stage {
+    padding: 2px;
+  }
+
+  .viewport-toolbar {
+    padding: 12px;
   }
 }
