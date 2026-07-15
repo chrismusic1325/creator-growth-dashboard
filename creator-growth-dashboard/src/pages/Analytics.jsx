@@ -1,3 +1,4 @@
+import PlatformOverviewTable from "../components/analytics/PlatformOverviewTable";
 import Card from "../components/common/Card";
 
 function Analytics({ platforms, products, tasks }) {
@@ -129,6 +130,7 @@ function Analytics({ platforms, products, tasks }) {
         <p>
           <strong>Marketing Tasks:</strong> {"█".repeat(tasks.length)}
         </p>
+        <PlatformOverviewTable platforms={platforms} />
       </Card>
     </section>
   );
