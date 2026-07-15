@@ -19,6 +19,7 @@ import {
 } from "./data/mockData";
 import "./App.css";
 import "./styles/viewport-preview.css";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [platforms, setPlatforms] = useState(starterPlatforms);
@@ -220,6 +221,7 @@ function App() {
 
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
 
