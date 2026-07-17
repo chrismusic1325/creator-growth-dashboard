@@ -31,7 +31,7 @@ function Header() {
 
           <img
             className="site-logo"
-            src="/creator-dashboard-logo.svg"
+            src={`${import.meta.env.BASE_URL}creator-dashboard-logo.svg`}
             alt="Creator Growth Dashboard logo showing rising analytics bars"
           />
         </div>
